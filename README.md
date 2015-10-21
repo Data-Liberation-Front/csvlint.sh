@@ -6,11 +6,7 @@ This uses the power of [Traveling Ruby](https://github.com/phusion/traveling-rub
 
 Currently, we support all Linux platforms (32bit and 64bit) and OSX. Windows support may be forthcoming in the future.
 
-## Clone the repo
-
-`git clone https://github.com/theodi/csvlint.sh.git && cd csvlint.sh`
-
-## Installation
+# Installation
 
 Eventually, we'd like to offer installation via a bash script or (better still) `apt-get install csvlint` / `brew install csvlint`, but for now, you'll need to follow these instructions.
 
@@ -30,7 +26,15 @@ Then copy the resulting folder to a sensible place. Make sure to add the locatio
 
 ## Generate application files yourself
 
-If you're interested in how this thing works, you can generate the application files yourself. Choose below, depending on your platform:
+If you're interested in how this thing works, you can generate the application files yourself.
+
+## Clone the repo
+
+`git clone https://github.com/theodi/csvlint.sh.git && cd csvlint.sh`
+
+## Run the packaging script
+
+Choose below, depending on your platform:
 
 ```
 rake package:linux:x86    # For Linux 32 bit systems
