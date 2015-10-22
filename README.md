@@ -8,7 +8,30 @@ Currently, we support all Linux platforms (32bit and 64bit) and OSX. Windows sup
 
 # Installation
 
-Eventually, we'd like to offer installation via a bash script or (better still) `apt-get install csvlint` / `brew install csvlint`, but for now, you'll need to follow these instructions.
+To install CSVlint, you'll need `curl` installed on your system.
+
+For Linux:
+
+```
+sudo apt-get update
+sudo apt-get install curl -y
+```
+
+For OS X:
+
+```
+brew install curl
+```
+
+## Simple installation
+
+From a Linux or OSX terminal, you can then run the following command to download and unpack CSVlint and set up your `$PATH`:
+
+```
+curl -s https://raw.githubusercontent.com/theodi/csvlint.sh/master/scripts/install.sh | bash
+```
+
+## Step by step install
 
 Download the relevant file, based on your platform:
 
@@ -19,12 +42,12 @@ Download the relevant file, based on your platform:
 You can then untar the file like so:
 
 ```
-tar xzf csvlint-1.0.0-osx.tar.gz # Example for OSX - YMMV
+tar xzf csvlint*.tar.gz
 ```
 
-Then copy the resulting folder to a sensible place. Make sure to add the location of the `csvlint` binary to your `PATH`.
+Then copy the resulting folder to a sensible place. Make sure to add the location of the `csvlint` binary to your `$PATH`.
 
-## Generate application files yourself
+# Generate application files yourself
 
 If you're interested in how this thing works, you can generate the application files yourself.
 
