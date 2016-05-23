@@ -2,12 +2,12 @@
 require 'bundler/setup'
 
 PACKAGE_NAME = "csvlint"
-VERSION = "1.0.0"
+VERSION = "0.3.1"
 TRAVELING_RUBY_VERSION = "20150210-2.1.5"
 FFI_VERSION = "1.9.6"
 
 desc "Package your app"
-task :package => ['package:linux:x86', 'package:linux:x86_64', 'package:osx']
+task :package => ['package:linux:x86', 'package:linux:x86_64', 'package:osx', 'package:win32']
 
 namespace :package do
   namespace :linux do
@@ -29,6 +29,13 @@ namespace :package do
     "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-osx-ffi-#{FFI_VERSION}.tar.gz"] do
     create_package("osx")
   end
+
+  desc "Package your app for Windows"
+  task :win32 => [:bundle_install, "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-win32.tar.gz",
+    "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-win32-ffi-#{FFI_VERSION}.tar.gz"] do
+    create_package("win32", :win32)
+  end
+
 
   desc "Install gems to local directory"
   task :bundle_install do
@@ -62,6 +69,10 @@ file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-osx.tar.gz" do
   download_runtime("osx")
 end
 
+file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-win32.tar.gz" do
+  download_runtime("win32")
+end
+
 file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-linux-x86-ffi-#{FFI_VERSION}.tar.gz" do
   download_native_extension("linux-x86", "ffi-#{FFI_VERSION}")
 end
@@ -74,14 +85,20 @@ file "packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-osx-ffi-#{FFI_VERSION}.
   download_native_extension("osx", "ffi-#{FFI_VERSION}")
 end
 
-def create_package(target)
+def create_package(target, os_type = :unix)
   package_dir = "#{PACKAGE_NAME}-#{VERSION}-#{target}"
   sh "rm -rf #{package_dir}"
   sh "mkdir #{package_dir}"
   sh "mkdir -p #{package_dir}/lib/app"
   sh "mkdir #{package_dir}/lib/ruby"
   sh "tar -xzf packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-#{target}.tar.gz -C #{package_dir}/lib/ruby"
-  sh "cp packaging/wrapper.sh #{package_dir}/#{PACKAGE_NAME}"
+  if os_type == :unix
+    sh "cp packaging/wrapper.sh #{package_dir}/#{PACKAGE_NAME}"
+  else
+    sh "cp csvlint.rb #{package_dir}/lib/app/csvlint.rb"
+    sh "cp packaging/wrapper.bat #{package_dir}/#{PACKAGE_NAME}.bat"
+    sh "cp -a packaging/curl/. #{package_dir}/lib/ruby/bin"
+  end
   sh "cp -pR packaging/vendor #{package_dir}/lib/"
   sh "cp Gemfile Gemfile.lock #{package_dir}/lib/vendor/"
   sh "mkdir #{package_dir}/lib/vendor/.bundle"
@@ -89,7 +106,11 @@ def create_package(target)
   sh "tar -xzf packaging/traveling-ruby-#{TRAVELING_RUBY_VERSION}-#{target}-ffi-#{FFI_VERSION}.tar.gz " +
     "-C #{package_dir}/lib/vendor/ruby"
   if !ENV['DIR_ONLY']
-    sh "tar -czf #{package_dir}.tar.gz #{package_dir}"
+    if os_type == :unix
+      sh "tar -czf #{package_dir}.tar.gz #{package_dir}"
+    else
+      sh "zip -9r #{package_dir}.zip #{package_dir}"
+    end
     sh "rm -rf #{package_dir}"
   end
 end

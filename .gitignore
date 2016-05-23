@@ -2,4 +2,7 @@
 .bundle
 hello-1.0.0-*
 *.tar.gz
+*.zip
 vendor
+
+!packaging/*-win32-ffi*.tar.gz
