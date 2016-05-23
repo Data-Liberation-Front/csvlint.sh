@@ -66,7 +66,7 @@ if [[ $EUID -eq 0 ]]; then
   update_profile "/etc/bash.bashrc"
 fi
 
-cli_version=1.0.0
+cli_version=0.3.1
 tar_filename="csvlint-${cli_version}-${download_platform}"
 asset_filename="csvlint.tgz"
 
