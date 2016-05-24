@@ -2,7 +2,7 @@
 require 'bundler/setup'
 
 PACKAGE_NAME = "csvlint"
-VERSION = "0.3.1"
+VERSION = "0.3.2"
 TRAVELING_RUBY_VERSION = "20150210-2.1.5"
 FFI_VERSION = "1.9.6"
 
