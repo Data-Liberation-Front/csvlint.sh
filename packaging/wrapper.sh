@@ -6,7 +6,7 @@ SELFDIR="`dirname \"$0\"`"
 SELFDIR="`cd \"$SELFDIR\" && pwd`"
 
 RUBY_VERSION="2.1.0"
-CSVLINT_VERSION="0.3.1"
+CSVLINT_VERSION="0.3.2"
 
 # Tell Bundler where the Gemfile and gems are.
 export BUNDLE_GEMFILE="$SELFDIR/lib/vendor/Gemfile"
