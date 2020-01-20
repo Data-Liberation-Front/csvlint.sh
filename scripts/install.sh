@@ -87,7 +87,7 @@ rm -rf ${download_dir}
 mkdir -p ${download_dir}
 download_file=${download_dir}/${asset_filename}
 
-download_url="https://github.com/theodi/csvlint.sh/releases/download/v${cli_version}/${tar_filename}.tar.gz"
+download_url="https://github.com/theodi/csvlint.sh/releases/download/${cli_version}/${tar_filename}.tar.gz"
 
 echo "Downloading v${cli_version}..."
 curl -k -L -H "Accept: application/octet-stream" $download_url -o ${download_file}
