@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'csvlint'
 gem 'thor'
-gem 'ffi', '1.13.0'
+gem 'ffi', '1.13.1'
 
 group :development do
   gem 'rake'
