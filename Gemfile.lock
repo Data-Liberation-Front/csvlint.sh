@@ -36,7 +36,7 @@ GEM
     net-http-persistent (2.9.4)
     open_uri_redirections (0.2.1)
     public_suffix (4.0.5)
-    rack (2.2.2)
+    rack (2.2.3)
     rake (12.3.3)
     thor (0.19.1)
     thread_safe (0.3.6)
